@@ -1,0 +1,218 @@
+---
+title: "TeeJet Reseach"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: spacelab
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
+---
+
+```{r setup, include=FALSE, warning = FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(ggthemes)
+library(plotly)
+library(shiny)
+library(reactable)
+library(reactablefmtr)
+library(ggrepel)
+library(ggfittext)
+```
+
+
+
+```{r warning = FALSE, echo=FALSE}
+# Dados
+readxl::read_excel("shopping_price.xlsx") -> data
+read_csv("names.csv") -> data1
+read_csv("dados_completos.csv") |> 
+    filter(!group %in% c("7", "8")) -> data_cb
+read_csv("diff_price.csv") -> diff_price
+```
+
+
+
+# Brazil price comparison  
+
+## Inputs {.sidebar}
+
+```{r}
+selectInput("select1", label = h4("Category"), 
+    choices = unique(data_cb$group), selected = 1)
+
+selectInput("select2", label = h4("Year"),
+              choices =  unique(data_cb$ano), selected = "2021")
+```
+
+
+
+## Column {data-width="500"}
+
+### Data
+
+```{r}
+renderPlotly({
+data_cb |> 
+  filter(group == input$select1 & ano == input$select2) |> 
+  ggplot(aes(x = pontas, y = price, color = regiao)) +
+  geom_boxplot(color = "#333333") +
+  geom_jitter(size = 2, alpha = 0.3) +
+  coord_flip() +
+  labs(color = NULL) +
+  scale_color_brewer(palette = "Set1") +
+  theme_fivethirtyeight() +
+    theme(legend.position = "none")
+})
+```
+
+### Price difference by year (2021 - 2022)
+
+```{r}
+renderReactable({
+data_cb |> 
+  filter(group == input$select1) |> 
+  group_by(pontas, group, ano) |> 
+  summarise(price_mean = round(mean(price),2)) |> 
+  pivot_wider(names_from = ano, values_from = price_mean) |> 
+  mutate(perc = round((`2022` - `2021`) / `2022` * 100,0)) |> 
+  ungroup() |> 
+  dplyr::select(pontas, `2021`, `2022`, perc) -> tab2
+
+tab2 |> 
+  reactable(pagination = FALSE,
+              theme = nytimes(font_size = 13, header_font_size = 15),
+              resizable = TRUE,
+              wrap = TRUE,
+            columns = list(
+              pontas = colDef(name = "Spray tip", align = "center"),
+              perc = colDef(name = "Difference (%)", align = "center",
+                            cell = data_bars_pos_neg(tab2, 
+                                                     colors = c("#ff3030", "#1e90ff")))))
+})
+```
+
+## Column {data-width="500"}
+
+
+
+
+### Price and Comparison with TeeJet
+
+```{r}
+
+
+renderReactable({
+diff_price |> 
+  filter(group == input$select1 & ano == input$select2) |> 
+  dplyr::select(pontas, preco_medio, sd, diff) -> tab1
+  
+tab1 |> 
+  reactable(pagination = FALSE,
+              theme = nytimes(font_size = 13, header_font_size = 15),
+              resizable = TRUE,
+              wrap = TRUE,
+            columns = list(
+              pontas = colDef(name = "Spray tip", align = "center"), 
+              preco_medio = colDef(name = "Price (RS$)", align = "center",
+                                   cell = color_tiles(tab1, colors = 
+                                                         c("#FF0000",
+                                                           "#7FFFD4"))),
+              sd = colDef(name = "SD", align = "center"), 
+              diff = colDef(name = "Difference (%)", align = "center",
+              cell = data_bars_pos_neg(tab1, colors = c("#ff3030", "#1e90ff")))))
+})
+```
+
+
+
+
+### Price comparison (Online vs TeeJet Research)
+
+```{r}
+renderPlotly({
+data_cb |> 
+  filter(group == input$select1 & ano == input$select2) |> 
+  mutate(online = case_when(
+    regiao == "Online" ~ TRUE,
+    TRUE ~ FALSE
+  )) |> 
+  group_by(pontas, group, ano, online) |> 
+  summarise(price_mean = round(mean(price),2), sd = round(sd(price),2)) |> 
+  ggplot(aes(x = pontas, y = price_mean, color = online)) +
+  geom_point(size = 3, 
+             position = position_dodge2(width = 0.7),
+             show.legend = FALSE) +
+  geom_linerange(aes(ymin = price_mean - sd, 
+                     ymax = price_mean + sd),
+                 position = position_dodge2(width = 0.7)) +
+  coord_flip() +
+  theme_fivethirtyeight() + 
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "none")
+})
+```
+
+
+# Brazilian states
+
+
+
+## Column {data-width="500"}
+
+### Price comparison by state
+
+```{r}
+renderPlotly({
+data_cb |> 
+  group_by(regiao, pontas, group, ano) |> 
+  summarise(price = round(mean(price),2)) |> 
+  filter(group == input$select1 & ano == input$select2) |> 
+  ggplot(aes(x = pontas, y = price, fill = regiao)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_brewer(palette = "Set1") +
+  labs(fill = NULL) +
+  theme_fivethirtyeight()
+})
+```
+
+### Demographics
+
+```{r}
+renderPlotly({
+data_cb |> 
+  count(group, regiao, ano) |> 
+  filter(group == input$select1 & ano == input$select2) |> 
+  ggplot(aes(x = fct_reorder(regiao, n), y = n, fill = regiao, label = n)) +
+  geom_col() + 
+  coord_flip() +
+  theme_fivethirtyeight() +
+  scale_fill_brewer(palette = "Set1") +
+  geom_bar_text(position = "stack", reflow = TRUE) +
+  theme(legend.position = "none")
+})
+```
+
+## Column {data-width="500"}
+
+### Map of Brazil
+
+```{r}
+renderPlotly({
+geobr::read_state() -> estado
+data_cb |> 
+  count(estado, ano, group) |> 
+  right_join(estado, by = c("estado" = "abbrev_state")) |> 
+  sf::st_as_sf() -> estado1
+
+estado1 |> 
+  filter(group == input$select1 & ano == input$select2) |> 
+  ggplot() +
+  geom_sf(data = estado) +
+  geom_sf(aes(fill = n)) +
+  scale_fill_viridis_c(option = "H") +
+  theme_map() +
+  labs(fill = NULL)
+})
+```
+
