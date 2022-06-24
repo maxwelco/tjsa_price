@@ -1,0 +1,305 @@
+---
+title: "price"
+author: "Maxwel Coura Oliveira"
+date: '2022-06-10'
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(ggthemes)
+library(reactable)
+library(geobr)
+```
+
+## 2021
+
+```{r}
+readxl::read_excel("price_2021.xlsx") |> 
+  janitor::clean_names() |> 
+  dplyr::select(-nome, -id, -cidade, -hora_de_inicio, -telefone_da_revenda, 
+                -informe_abaixo_o_valor_da_ponta_de_pulverizacao_ex_0_00_use_ponto, 
+                -modelo_da_ponta_de_pulverizacao, 
+                -caso_necessario_utilize_o_campo_abaixo_para_importantes_comentarios_sobre_posicionamento_de_preco_identificado_durante_a_coleta_de_informacoes_deste_formulario,
+                -hora_de_conclusao, -email, -vendedor, -fabricante) |> 
+  pivot_longer(cols = xr_vk:jmd, names_to = "pontas", values_to = "price",
+               names_repair = "check_unique") |> 
+  rename(estado = estado_informar_a_sigla_ex_sp,
+         marcas = quais_marcas_de_pontas_de_pulverizacao_esta_revenda_comercializa) |> 
+  filter(!is.na(price),
+         price != 0) |> 
+  mutate(price = str_remove(price, "[.]"),
+         price = str_replace(price, "(^\\d{2})", "\\1."),
+         price = round(as.double(price),2),
+         pontas = str_replace(pontas, "_", "-"),
+         pontas = str_to_upper(pontas),
+         pontas = if_else(pontas == "TT", "TT-VP", pontas),
+         pontas = if_else(pontas == "ADIA", "AD-IA", pontas)) |> 
+  mutate(price = if_else(pontas == "TTI" & price == 15.75, 157.5, price),
+         price = if_else(pontas == "JMD" & price == 12.91, 129.10, price)) -> dados_21
+```
+
+
+```{r}
+data1 |> 
+  dplyr::select(manufacturer, family, group) -> group
+```
+
+```{r}
+dados_21 |> 
+  left_join(group, by = c("pontas" = "family")) |> 
+  mutate(ano = 2021) |> 
+  distinct(estado, nome_da_revenda, pontas, price, .keep_all = TRUE) -> dados_2021
+```
+
+
+## 2022
+
+```{r}
+readxl::read_excel("price_2022.xlsx", sheet = "Geral") |> 
+  janitor::clean_names() |> 
+  dplyr::select(-id, - hora_de_inicio, -hora_de_conclusao, -email, -nome, -idioma,
+                -nome2, -o_cliente_que_esta_visitando_ja_e_um_revendedor_tee_jet,
+                -territorio_da_tee_jet_br_onde_esta_sediado_o_cliente, -cidade,
+                -telefone_e_nome_de_um_contato_na_empresa_revendedora_dealer,
+                -quais_materiais_ferramentas_voce_apresentou_utilizou_para_o_cliente_durante_essa_visita,
+                -inserir_sigla_do_modelo_da_ponta_de_pulverizacao_nome_do_fabricante_preco_encontrado_ex_grd120_025_hypro_r_37_50, 
+                -potencial_do_cliente_como_influenciador_em_t_a_na_regiao,
+                -conhecimento_tecnico_e_valorizacao_da_importancia_das_pontas_de_pulverizacao,
+                -interesse_dos_gestores_e_funcionarios_da_revenda_pelas_pontas_tj,
+                -chance_de_crescimento_da_marca_tee_jet_neste_cliente,
+                -relevancia_deste_cliente_na_regiao_onde_esta_a_sediada_a_revenda,
+                -probabilidade_do_cliente_efetivar_uma_compra_apos_essa_visita,
+                -magnojet2, -tee_jet2, -hypro2, -jacto3, -magnojet3,
+                -qual_o_nivel_de_satisfacao_do_cliente_apos_sua_visita,
+                -insira_suas_sugestoes_e_comentarios_referentes_a_essa_pesquisa_de_mercado,
+                -quanto_essa_pesquisa_contribuiu_para_sua_avaliacao_sobre_a_visita_ao_seu_cliente, 
+                -tee_jet, -hypro, -jacto2) |> 
+  rename(
+    nome_da_revenda = nome_do_revendedor_que_esta_visitando_dealer_ex_mac_campo,
+    estado = em_qual_estado_brasileiro_esta_sediada_a_empresa_visitada,
+    marcas = quais_marcas_de_pontas_de_pulverizacao_a_revenda_mantem_em_estoque
+  ) |> 
+  pivot_longer(cols = txa:jmd, names_to = "pontas", values_to = "price") |> 
+  mutate(price = str_remove(price, ">"),
+         price = str_remove(price, "<"),
+         price = str_replace(price, ",", "."),
+         price = str_replace(price, ",", ".")) |> 
+  filter(!is.na(price)) |> 
+  mutate(pontas = str_replace(pontas, "_", "-"),
+         pontas = str_to_upper(pontas)) |> 
+  separate(price, into = c("min", "max"), sep = " a ") |> 
+  mutate_at(c("min", "max"), as.double) |> 
+  mutate(max = if_else(is.na(max), min, max)) |> 
+  mutate(price = round((min + max)/ 2,2)) |> 
+  dplyr::select(estado, nome_da_revenda, marcas, pontas, price) |>
+  filter(!is.na(price),
+        price != 0) -> dados_22
+```
+
+```{r}
+dados_22 |> 
+  left_join(group, by = c("pontas" = "family")) |> 
+  mutate(ano = 2022) |> 
+  distinct(estado, nome_da_revenda, pontas, price, .keep_all = TRUE) -> dados_2022
+```
+
+```{r}
+data1 |> 
+  filter(fonte != "TeeJet") |> 
+  rename(estado = fonte2,
+         pontas = family,
+         ano = year,
+         nome_da_revenda = fonte) |> 
+  mutate(marcas = NA_character_) |> 
+  dplyr::select(estado, marcas, nome_da_revenda, pontas, price, manufacturer, group, ano) |> 
+  mutate_if(is_character, as_factor) -> dados_online
+```
+
+
+
+```{r}
+bind_rows(dados_2021, dados_2022) |> 
+  mutate(estado = str_to_upper(estado),
+         ano = factor(ano)) |> 
+  mutate(estado = if_else(estado == "MUG MAGNOJET R$ 45,00", "SP", estado)) |> 
+  mutate(estado = case_when(
+    estado == "GOIÁS" ~ "GO",
+    estado == "TOCANTINS" ~ "TO",
+    estado == "BAHIA" ~ "BA",
+    estado == "MATO GROSSO DO SUL" ~ "MT",
+    estado == "PIAUÍ" ~ "PI",
+    TRUE ~ estado
+  )) |> 
+  mutate_if(is_character, as_factor) |> 
+  bind_rows(dados_online) |> 
+  mutate(nome_da_revenda = str_to_upper(nome_da_revenda)) |> 
+  mutate(estado = as.character(estado)) |> 
+  mutate(estado = case_when(
+    nome_da_revenda == "CANAL AGRÍCOLA" ~ "Online",
+    nome_da_revenda == "HERBICAT" ~ "Online",
+    TRUE ~ estado
+  )) |> 
+  mutate(regiao = case_when(
+    estado %in% c("RS", "PR", "SC") ~ "Sul",
+    estado %in% c("MG", "SP", "RJ", "ES") ~ "Sudeste",
+    estado %in% c("MS", "MT", "GO") ~ "Centro-Oeste", 
+    estado %in% c("TO", "AM", "RO", "RO", "RR") ~ "Norte",
+    estado %in% c("Online") ~ "Online",
+    TRUE ~ "Nordeste"
+  )) |> 
+  filter(!is.na(price) & price != 0.00) |> 
+    mutate(price = if_else(price == 94.20, 9.42, price)) -> data_cb
+write_csv(data_cb, "dados_completos.csv")
+```
+
+
+
+```{r}
+data_cb |> 
+  group_by(pontas, group, ano, manufacturer) |> 
+  summarise(preco_medio = round(mean(price),2), sd = round(sd(price),2)) |> 
+  ungroup(pontas, group, ano, manufacturer) |> 
+  mutate(preco_base = case_when(
+    manufacturer == "TEEJET" ~ preco_medio,
+    TRUE ~ NA_real_)) |> 
+  arrange(ano, desc(group), desc(manufacturer)) |> 
+  filter(!group %in% c("7", "8")) |> 
+  fill(preco_base, .direction = "up") |> 
+  mutate(diff = round((preco_medio - preco_base) / preco_base * 100,1)) |> 
+  write_csv("diff_price.csv")
+```
+
+```{r}
+diff_price |> 
+  filter(group == 1)
+```
+
+
+
+
+
+```{r}
+diff_price |> 
+  filter(group == 1 & ano == 2021) |> 
+  dplyr::select(pontas, group, ano, preco_medio, diff) |> 
+  reactable(pagination = FALSE,
+              theme = nytimes(font_size = 13, header_font_size = 15),
+              resizable = TRUE,
+              wrap = TRUE,
+            columns = list(
+              preco_medio = colDef(name = "Preço médio ", align = "center",
+                                   cell = color_tiles(diff_price, colors = 
+                                                         c("#FF0000",
+                                                           "#7FFFD4"))),
+              diff = colDef(name = "Diferença", align = "center",
+              cell = data_bars_pos_neg(diff_price, colors = c("#ff3030", "#1e90ff")))))
+```
+
+
+```{r}
+data_cb |> 
+  filter(group == 1 & ano == 2022) |> 
+  ggplot(aes(x = pontas, y = price, color = regiao)) +
+  geom_jitter(size = 3, position = position_jitter()) +
+  coord_flip() +
+  theme_fivethirtyeight() + 
+  scale_color_brewer(palette = "Set1") 
+```
+
+
+```{r}
+data_cb |> 
+  filter(group == 4 & ano == "2022") |> 
+  ggplot(aes(x = pontas, y = price, color = ano)) +
+  geom_boxplot() +
+  geom_jitter(size = 3, alpha = 0.25) +
+  coord_flip() +
+  labs(color = NULL) +
+  scale_y_continuous(limits = c(0, 150)) +
+  theme_fivethirtyeight() 
+```
+
+
+```{r}
+data_cb |> 
+  group_by(pontas, group, ano, regiao) |> 
+  summarise(preco_medio = round(mean(price),2), desvio_pd = round(sd(price),2)) |> 
+  filter(group == 1 & ano == 2022) |> 
+  ggplot(aes(x = pontas, y = preco_medio, color = regiao)) +
+  geom_point(position = position_jitterdodge(dodge.width = 0.75, 
+                                             seed = 22), 
+             size = 3, 
+             alpha = 0.5) +
+  labs(color = NULL) +
+  geom_linerange(aes(ymin = preco_medio - desvio_pd,
+                     ymax = preco_medio + desvio_pd),
+                 position = position_jitterdodge(dodge.width = 0.75, 
+                                                 seed = 22)) +
+  scale_y_continuous(limits = c(0, 100)) +
+  coord_flip() +
+  theme_fivethirtyeight() +
+  scale_color_brewer(palette = "Set1")
+```
+
+
+```{r}
+data_cb |> 
+  group_by(pontas, group, ano, manufacturer) |> 
+  summarise(preco_medio = round(mean(price),2), sd = round(sd(price),2)) |> 
+  mutate(preco_base = case_when(
+    manufacturer == "TEEJET" ~ preco_medio,
+    TRUE ~ NA_real_)) |> 
+  arrange(group, ano, manufacturer) |> 
+  ungroup() |> 
+  fill(preco_base, .direction = "up") |> 
+  mutate(diff = round((preco_medio - preco_base) / preco_base * 100,1)) |> 
+  mutate(ano = factor(ano)) -> diff_price
+```
+
+
+```{r}
+data_cb |> 
+  group_by(regiao, pontas, group, ano) |> 
+  summarise(price = round(mean(price),2)) |> 
+  filter(group == 2, ano == 2021) |> 
+  ggplot(aes(x = pontas, y = price, fill = regiao)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_brewer(palette = "Set1") +
+  labs(fill = NULL) +
+  theme_fivethirtyeight()
+```
+
+
+```{r}
+diff_price |> 
+  filter(group == 5) |> 
+  ggplot(aes(x = pontas, y = diff, fill = factor(ano))) +
+  geom_bar(stat = "identity", 
+           width = 0.4,
+           position = position_dodge2()) +
+  coord_flip() +
+  scale_y_continuous(limits = c(-100, 100)) +
+  theme_fivethirtyeight() +
+  scale_color_brewer(palette = "Set1")
+```
+
+
+```{r}
+geobr::read_state() -> estado
+data_cb |> 
+  count(estado, ano, group) |> 
+  right_join(estado, by = c("estado" = "abbrev_state")) |> 
+  sf::st_as_sf() -> estado1
+
+
+estado1 |> 
+  filter(ano == 2021 & group == 1) |> 
+  ggplot() +
+  geom_sf(data = estado) +
+  geom_sf(aes(fill = n)) +
+  scale_fill_viridis_c() +
+  theme_map() +
+  theme(legend.position = "none")
+```
+

@@ -1,0 +1,162 @@
+manufacturer,comparative,family,group,type,price,year,fonte,fonte2
+TEEJET,Valor em reais do TX´s / TXA´s,TXA,1,average_2022,21.79,2022,TeeJet,TeeJet
+TEEJET,Valor em reais do TX´s / TXA´s,TXA,1,average_2021,21.53,2021,TeeJet,TeeJet
+TEEJET,Valor em reais do TX´s / TXA´s,TXA,1,web_canal_agricola_2021,23.24,2021,Canal Agricola,Online
+TEEJET,Valor em reais do TX´s / TXA´s,TXA,1,web_canal_agricola_2022,34.46,2022,Canal Agricola,Online
+TEEJET,Valor em reais do TX´s / TXA´s,TXA,1,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+TEEJET,Valor em reais do TX´s / TXA´s,TXA,1,web_herbicat_2022,22.23,2022,Herbicat,Online
+TEEJET,Valor em reais do TX´s / TXA´s,TXA,1,web_jacto_parts,NA,2022,Jacto,Online
+TEEJET,Valor em reais do XR-VK,XR-VK,2,average_2022,22.42,2022,TeeJet,TeeJet
+TEEJET,Valor em reais do XR-VK,XR-VK,2,average_2021,34.68,2021,TeeJet,TeeJet
+TEEJET,Valor em reais do XR-VK,XR-VK,2,web_canal_agricola_2021,42.24,2021,Canal Agricola,Online
+TEEJET,Valor em reais do XR-VK,XR-VK,2,web_canal_agricola_2022,27.18,2022,Canal Agricola,Online
+TEEJET,Valor em reais do XR-VK,XR-VK,2,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+TEEJET,Valor em reais do XR-VK,XR-VK,2,web_herbicat_2022,47.56,2022,Herbicat,Online
+TEEJET,Valor em reais do XR-VK,XR-VK,2,web_jacto_parts,NA,2022,Jacto,Online
+TEEJET,Valor em reais do TT-VP,TT-VP,3,average_2022,21.5,2022,TeeJet,TeeJet
+TEEJET,Valor em reais do TT-VP,TT-VP,3,average_2021,19.96,2021,TeeJet,TeeJet
+TEEJET,Valor em reais do TT-VP,TT-VP,3,web_canal_agricola_2021,21.47,2021,Canal Agricola,Online
+TEEJET,Valor em reais do TT-VP,TT-VP,3,web_canal_agricola_2022,32.15,2022,Canal Agricola,Online
+TEEJET,Valor em reais do TT-VP,TT-VP,3,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+TEEJET,Valor em reais do TT-VP,TT-VP,3,web_herbicat_2022,20.72,2022,Herbicat,Online
+TEEJET,Valor em reais do TT-VP,TT-VP,3,web_jacto_parts,NA,2022,Jacto,Online
+TEEJET,Valor em reais do TTJ60,TTJ60,4,average_2022,23.87,2022,TeeJet,TeeJet
+TEEJET,Valor em reais do TTJ60,TTJ60,4,average_2021,21.99,2021,TeeJet,TeeJet
+TEEJET,Valor em reais do TTJ60,TTJ60,4,web_canal_agricola_2021,20.36,2021,Canal Agricola,Online
+TEEJET,Valor em reais do TTJ60,TTJ60,4,web_canal_agricola_2022,41.17,2022,Canal Agricola,Online
+TEEJET,Valor em reais do TTJ60,TTJ60,4,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+TEEJET,Valor em reais do TTJ60,TTJ60,4,web_herbicat_2022,24.86,2022,Herbicat,Online
+TEEJET,Valor em reais do TTJ60,TTJ60,4,web_jacto_parts,NA,2022,Jacto,Online
+TEEJET,Valor em reais do AIXR-VK,AIXR-VK,5,average_2022,38.91,2022,TeeJet,TeeJet
+TEEJET,Valor em reais do AIXR-VK,AIXR-VK,5,average_2021,38,2021,TeeJet,TeeJet
+TEEJET,Valor em reais do AIXR-VK,AIXR-VK,5,web_canal_agricola_2021,61.75,2021,Canal Agricola,Online
+TEEJET,Valor em reais do AIXR-VK,AIXR-VK,5,web_canal_agricola_2022,NA,2022,Canal Agricola,Online
+TEEJET,Valor em reais do AIXR-VK,AIXR-VK,5,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+TEEJET,Valor em reais do AIXR-VK,AIXR-VK,5,web_herbicat_2022,0,2022,Herbicat,Online
+TEEJET,Valor em reais do AIXR-VK,AIXR-VK,5,web_jacto_parts,NA,2022,Jacto,Online
+TEEJET,Valor em reais do TTI,TTI,6,average_2022,50.79,2022,TeeJet,TeeJet
+TEEJET,Valor em reais do TTI,TTI,6,average_2021,71.1,2021,TeeJet,TeeJet
+TEEJET,Valor em reais do TTI,TTI,6,web_canal_agricola_2021,76.54,2021,Canal Agricola,Online
+TEEJET,Valor em reais do TTI,TTI,6,web_canal_agricola_2022,59.78,2022,Canal Agricola,Online
+TEEJET,Valor em reais do TTI,TTI,6,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+TEEJET,Valor em reais do TTI,TTI,6,web_herbicat_2022,44.68,2022,Herbicat,Online
+TEEJET,Valor em reais do TTI,TTI,6,web_jacto_parts,NA,2022,Jacto,Online
+TEEJET,Valor em reais do APTJ (PWM),APTJ,7,average_2022,66.67,2022,TeeJet,TeeJet
+TEEJET,Valor em reais do APTJ (PWM),APTJ,7,average_2021,0,2021,TeeJet,TeeJet
+TEEJET,Valor em reais do APTJ (PWM),APTJ,7,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+TEEJET,Valor em reais do APTJ (PWM),APTJ,7,web_canal_agricola_2022,NA,2022,Canal Agricola,Online
+TEEJET,Valor em reais do APTJ (PWM),APTJ,7,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+TEEJET,Valor em reais do APTJ (PWM),APTJ,7,web_herbicat_2022,NA,2022,Herbicat,Online
+TEEJET,Valor em reais do APTJ (PWM),APTJ,7,web_jacto_parts,NA,2022,Jacto,Online
+MAGNOJET,BD (similar ao XR-VK),BD,2,average_2022,15.19,2022,TeeJet,TeeJet
+MAGNOJET,BD (similar ao XR-VK),BD,2,average_2021,11.25,2021,TeeJet,TeeJet
+MAGNOJET,BD (similar ao XR-VK),BD,2,web_canal_agricola_2021,10.27,2021,Canal Agricola,Online
+MAGNOJET,BD (similar ao XR-VK),BD,2,web_canal_agricola_2022,11.48,2022,Canal Agricola,Online
+MAGNOJET,BD (similar ao XR-VK),BD,2,web_drs_pulverizadores,9.96,2022,DRS Pulverizadores,Online
+MAGNOJET,BD (similar ao XR-VK),BD,2,web_herbicat_2022,NA,2022,Herbicat,Online
+MAGNOJET,BD (similar ao XR-VK),BD,2,web_jacto_parts,NA,2022,Jacto,Online
+MAGNOJET,MGA (similar ao TXA),MGA,1,average_2022,21.73,2022,TeeJet,TeeJet
+MAGNOJET,MGA (similar ao TXA),MGA,1,average_2021,19.29,2021,TeeJet,TeeJet
+MAGNOJET,MGA (similar ao TXA),MGA,1,web_canal_agricola_2021,19.32,2021,Canal Agricola,Online
+MAGNOJET,MGA (similar ao TXA),MGA,1,web_canal_agricola_2022,24.83,2022,Canal Agricola,Online
+MAGNOJET,MGA (similar ao TXA),MGA,1,web_drs_pulverizadores,21.54,2022,DRS Pulverizadores,Online
+MAGNOJET,MGA (similar ao TXA),MGA,1,web_herbicat_2022,NA,2022,Herbicat,Online
+MAGNOJET,MGA (similar ao TXA),MGA,1,web_jacto_parts,NA,2022,Jacto,Online
+MAGNOJET,MAG (similar ao TXA),MAG,1,average_2022,11.57,2022,TeeJet,TeeJet
+MAGNOJET,MAG (similar ao TXA),MAG,1,average_2021,11.78,2021,TeeJet,TeeJet
+MAGNOJET,MAG (similar ao TXA),MAG,1,web_canal_agricola_2021,9.42,2021,Canal Agricola,Online
+MAGNOJET,MAG (similar ao TXA),MAG,1,web_canal_agricola_2022,11,2022,Canal Agricola,Online
+MAGNOJET,MAG (similar ao TXA),MAG,1,web_drs_pulverizadores,9.58,2022,DRS Pulverizadores,Online
+MAGNOJET,MAG (similar ao TXA),MAG,1,web_herbicat_2022,NA,2022,Herbicat,Online
+MAGNOJET,MAG (similar ao TXA),MAG,1,web_jacto_parts,NA,2022,Jacto,Online
+MAGNOJET,ST (similar ao TT),ST,3,average_2022,29.16,2022,TeeJet,TeeJet
+MAGNOJET,ST (similar ao TT),ST,3,average_2021,21.89,2021,TeeJet,TeeJet
+MAGNOJET,ST (similar ao TT),ST,3,web_canal_agricola_2021,21.06,2021,Canal Agricola,Online
+MAGNOJET,ST (similar ao TT),ST,3,web_canal_agricola_2022,27.08,2022,Canal Agricola,Online
+MAGNOJET,ST (similar ao TT),ST,3,web_drs_pulverizadores,27.8,2022,DRS Pulverizadores,Online
+MAGNOJET,ST (similar ao TT),ST,3,web_herbicat_2022,NA,2022,Herbicat,Online
+MAGNOJET,ST (similar ao TT),ST,3,web_jacto_parts,NA,2022,Jacto,Online
+MAGNOJET,ST-D (similar ao TTJ60),ST-D,4,average_2022,32.02,2022,TeeJet,TeeJet
+MAGNOJET,ST-D (similar ao TTJ60),ST-D,4,average_2021,27.17,2021,TeeJet,TeeJet
+MAGNOJET,ST-D (similar ao TTJ60),ST-D,4,web_canal_agricola_2021,27.9,2021,Canal Agricola,Online
+MAGNOJET,ST-D (similar ao TTJ60),ST-D,4,web_canal_agricola_2022,35.86,2022,Canal Agricola,Online
+MAGNOJET,ST-D (similar ao TTJ60),ST-D,4,web_drs_pulverizadores,29.1,2022,DRS Pulverizadores,Online
+MAGNOJET,ST-D (similar ao TTJ60),ST-D,4,web_herbicat_2022,NA,2022,Herbicat,Online
+MAGNOJET,ST-D (similar ao TTJ60),ST-D,4,web_jacto_parts,NA,2022,Jacto,Online
+MAGNOJET,AD-IA (similar ao AIXR/AI -VK),AD-IA,5,average_2022,37.21,2022,TeeJet,TeeJet
+MAGNOJET,AD-IA (similar ao AIXR/AI -VK),AD-IA,5,average_2021,32.96,2021,TeeJet,TeeJet
+MAGNOJET,AD-IA (similar ao AIXR/AI -VK),AD-IA,5,web_canal_agricola_2021,31.7,2021,Canal Agricola,Online
+MAGNOJET,AD-IA (similar ao AIXR/AI -VK),AD-IA,5,web_canal_agricola_2022,37.06,2022,Canal Agricola,Online
+MAGNOJET,AD-IA (similar ao AIXR/AI -VK),AD-IA,5,web_drs_pulverizadores,32.2,2022,DRS Pulverizadores,Online
+MAGNOJET,AD-IA (similar ao AIXR/AI -VK),AD-IA,5,web_herbicat_2022,NA,2022,Herbicat,Online
+MAGNOJET,AD-IA (similar ao AIXR/AI -VK),AD-IA,5,web_jacto_parts,NA,2022,Jacto,Online
+MAGNOJET,STIA (similar ao AITTJ),STIA,8,average_2022,41.62,2022,TeeJet,TeeJet
+MAGNOJET,STIA (similar ao AITTJ),STIA,8,average_2021,0,2021,TeeJet,TeeJet
+MAGNOJET,STIA (similar ao AITTJ),STIA,8,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+MAGNOJET,STIA (similar ao AITTJ),STIA,8,web_canal_agricola_2022,44.84,2022,Canal Agricola,Online
+MAGNOJET,STIA (similar ao AITTJ),STIA,8,web_drs_pulverizadores,38.87,2022,DRS Pulverizadores,Online
+MAGNOJET,STIA (similar ao AITTJ),STIA,8,web_herbicat_2022,NA,2022,Herbicat,Online
+MAGNOJET,STIA (similar ao AITTJ),STIA,8,web_jacto_parts,NA,2022,Jacto,Online
+MAGNOJET,MUG (similar ao TTI),MUG,6,average_2022,70.61,2022,TeeJet,TeeJet
+MAGNOJET,MUG (similar ao TTI),MUG,6,average_2021,42.93,2021,TeeJet,TeeJet
+MAGNOJET,MUG (similar ao TTI),MUG,6,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+MAGNOJET,MUG (similar ao TTI),MUG,6,web_canal_agricola_2022,78.06,2022,Canal Agricola,Online
+MAGNOJET,MUG (similar ao TTI),MUG,6,web_drs_pulverizadores,55.5,2022,DRS Pulverizadores,Online
+MAGNOJET,MUG (similar ao TTI),MUG,6,web_herbicat_2022,NA,2022,Herbicat,Online
+MAGNOJET,MUG (similar ao TTI),MUG,6,web_jacto_parts,NA,2022,Jacto,Online
+JACTO,AXI (similar ao XR-VK),AXI,2,average_2022,25,2022,TeeJet,TeeJet
+JACTO,AXI (similar ao XR-VK),AXI,2,average_2021,24.18,2021,TeeJet,TeeJet
+JACTO,AXI (similar ao XR-VK),AXI,2,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+JACTO,AXI (similar ao XR-VK),AXI,2,web_canal_agricola_2022,NA,2022,Canal Agricola,Online
+JACTO,AXI (similar ao XR-VK),AXI,2,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+JACTO,AXI (similar ao XR-VK),AXI,2,web_herbicat_2022,NA,2022,Herbicat,Online
+JACTO,AXI (similar ao XR-VK),AXI,2,web_jacto_parts,29.11,2022,Jacto,Online
+JACTO,JA (similar ao TXA),JA,1,average_2022,21.06,2022,TeeJet,TeeJet
+JACTO,JA (similar ao TXA),JA,1,average_2021,16.87,2021,TeeJet,TeeJet
+JACTO,JA (similar ao TXA),JA,1,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+JACTO,JA (similar ao TXA),JA,1,web_canal_agricola_2022,NA,2022,Canal Agricola,Online
+JACTO,JA (similar ao TXA),JA,1,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+JACTO,JA (similar ao TXA),JA,1,web_herbicat_2022,NA,2022,Herbicat,Online
+JACTO,JA (similar ao TXA),JA,1,web_jacto_parts,23.12,2022,Jacto,Online
+JACTO,ATR (similar ao TXR),ATR,1,average_2022,36.32,2022,TeeJet,TeeJet
+JACTO,ATR (similar ao TXR),ATR,1,average_2021,33.06,2021,TeeJet,TeeJet
+JACTO,ATR (similar ao TXR),ATR,1,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+JACTO,ATR (similar ao TXR),ATR,1,web_canal_agricola_2022,NA,2022,Canal Agricola,Online
+JACTO,ATR (similar ao TXR),ATR,1,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+JACTO,ATR (similar ao TXR),ATR,1,web_herbicat_2022,NA,2022,Herbicat,Online
+JACTO,ATR (similar ao TXR),ATR,1,web_jacto_parts,40.82,2022,Jacto,Online
+JACTO,J3D (similar ao TT),J3D,3,average_2022,81.45,2022,TeeJet,TeeJet
+JACTO,J3D (similar ao TT),J3D,3,average_2021,62.33,2021,TeeJet,TeeJet
+JACTO,J3D (similar ao TT),J3D,3,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+JACTO,J3D (similar ao TT),J3D,3,web_canal_agricola_2022,NA,2022,Canal Agricola,Online
+JACTO,J3D (similar ao TT),J3D,3,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+JACTO,J3D (similar ao TT),J3D,3,web_herbicat_2022,NA,2022,Herbicat,Online
+JACTO,J3D (similar ao TT),J3D,3,web_jacto_parts,105.39,2022,Jacto,Online
+JACTO,JTT (TT com o nome Jacto),JTT,3,average_2022,28.72,2022,TeeJet,TeeJet
+JACTO,JTT (TT com o nome Jacto),JTT,3,average_2021,29.96,2021,TeeJet,TeeJet
+JACTO,JTT (TT com o nome Jacto),JTT,3,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+JACTO,JTT (TT com o nome Jacto),JTT,3,web_canal_agricola_2022,NA,2022,Canal Agricola,Online
+JACTO,JTT (TT com o nome Jacto),JTT,3,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+JACTO,JTT (TT com o nome Jacto),JTT,3,web_herbicat_2022,NA,2022,Herbicat,Online
+JACTO,JTT (TT com o nome Jacto),JTT,3,web_jacto_parts,32.34,2022,Jacto,Online
+JACTO,AVI (similar ao AIXR-VK),AVI,5,average_2022,71.69,2022,TeeJet,TeeJet
+JACTO,AVI (similar ao AIXR-VK),AVI,5,average_2021,70.32,2021,TeeJet,TeeJet
+JACTO,AVI (similar ao AIXR-VK),AVI,5,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+JACTO,AVI (similar ao AIXR-VK),AVI,5,web_canal_agricola_2022,NA,2022,Canal Agricola,Online
+JACTO,AVI (similar ao AIXR-VK),AVI,5,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+JACTO,AVI (similar ao AIXR-VK),AVI,5,web_herbicat_2022,NA,2022,Herbicat,Online
+JACTO,AVI (similar ao AIXR-VK),AVI,5,web_jacto_parts,75.88,2022,Jacto,Online
+JACTO,CVI (similar ao AIXR-VK),CVI,5,average_2022,81.34,2022,TeeJet,TeeJet
+JACTO,CVI (similar ao AIXR-VK),CVI,5,average_2021,78.74,2021,TeeJet,TeeJet
+JACTO,CVI (similar ao AIXR-VK),CVI,5,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+JACTO,CVI (similar ao AIXR-VK),CVI,5,web_canal_agricola_2022,NA,2022,Canal Agricola,Online
+JACTO,CVI (similar ao AIXR-VK),CVI,5,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+JACTO,CVI (similar ao AIXR-VK),CVI,5,web_herbicat_2022,NA,2022,Herbicat,Online
+JACTO,CVI (similar ao AIXR-VK),CVI,5,web_jacto_parts,92.68,2022,Jacto,Online
+JACTO,JMD (similar ao TTI),JMD,6,average_2022,105.39,2022,TeeJet,TeeJet
+JACTO,JMD (similar ao TTI),JMD,6,average_2021,129.12,2021,TeeJet,TeeJet
+JACTO,JMD (similar ao TTI),JMD,6,web_canal_agricola_2021,NA,2021,Canal Agricola,Online
+JACTO,JMD (similar ao TTI),JMD,6,web_canal_agricola_2022,NA,2022,Canal Agricola,Online
+JACTO,JMD (similar ao TTI),JMD,6,web_drs_pulverizadores,NA,2022,DRS Pulverizadores,Online
+JACTO,JMD (similar ao TTI),JMD,6,web_herbicat_2022,NA,2022,Herbicat,Online
+JACTO,JMD (similar ao TTI),JMD,6,web_jacto_parts,105.39,2022,Jacto,Online

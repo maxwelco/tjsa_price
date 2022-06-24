@@ -1,0 +1,87 @@
+---
+title: "dados"
+author: "Maxwel Coura Oliveira"
+date: "6/2/2022"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(ggthemes)
+library(plotly)
+library(ggrepel)
+```
+
+
+```{r}
+readxl::read_excel("shopping_price.xlsx") -> data
+```
+
+
+```{r}
+data |> 
+  janitor::clean_names() |> 
+  mutate(web_canal_agricola_2022 = parse_double(web_canal_agricola_2022)) |> 
+  pivot_longer(cols = c(5:11), names_to = "type", values_to = "price") |> 
+  mutate(price = round(price, 2)) |> 
+  mutate(year = case_when(
+    str_detect(type, "2021") ~ 2021,
+    TRUE ~ 2022
+  )) |> 
+  mutate(fonte = case_when(
+    str_detect(type, "average") ~ "TeeJet",
+    str_detect(type, "canal_agricola") ~ "Canal Agricola",
+    str_detect(type, "drs_pulverizadores") ~ "DRS Pulverizadores",
+    str_detect(type, "web_herbicat_2022") ~ "Herbicat",
+    TRUE ~ "Jacto",
+  )) |> 
+  mutate(fonte2 = case_when(
+    str_detect(type, "average") ~ "TeeJet",
+    TRUE ~ "Online",
+  )) |> 
+  mutate(year = as_factor(year),
+         group = as_factor(group)) |> 
+  mutate_if(is_character, as_factor) -> data1
+```
+
+```{r}
+data1 |> 
+  write_csv("names.csv")
+```
+
+
+
+
+
+
+
+
+
+
+## Grupo 5
+
+```{r}
+data1 |> 
+  filter(group == 5) |> 
+  select(family, price, year, fonte, fonte2) |> 
+  filter(!is.na(price)) |> 
+  ggplot(aes(x = family, y = price, color = year, label = fonte)) +
+  geom_boxplot(position = position_dodge2()) +
+  geom_jitter(position = position_jitterdodge(), size = 3, alpha = 0.5) +
+  coord_flip() +
+  theme_fivethirtyeight() + 
+  scale_color_brewer(palette = "Set1") +
+  scale_y_continuous(limits = c(0, 55), labels = scales::number_format(prefix = "R$")) +
+  facet_grid(~fonte2) +
+  geom_text_repel(size = 2, 
+                  min.segment.length = 0,
+                  show.legend = FALSE) +
+  theme(strip.text = element_text(face = "bold", size = 13),
+        axis.text.y = element_text(face = "bold", size = 13)) 
+  
+
+ggsave("group_5.png")
+```
+
+
+

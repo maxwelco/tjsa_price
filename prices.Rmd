@@ -1,0 +1,346 @@
+---
+title: "Prices"
+author: "Maxwel Coura Oliveira"
+date: "6/1/2022"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(rvest)
+library(ggthemes)
+```
+
+
+## Valores tirados no dia 02/06/2022
+
+## TeeJet
+
+```{r}
+ag_teejet <- "https://www.canalagricola.com.br/pulverizacao/bicos-pontas/bicos-pulverizacao/shopby/manufacturer-teejet?limit=all"
+
+read_html(ag_teejet) -> ag_teejet1
+
+str(ag_teejet1)
+```
+
+```{r}
+ag_teejet1 %>%  
+  html_nodes('.product-name') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(ponta = value) |> 
+  mutate(ponta = str_remove(ponta, "\r\n\t\t\t\r\n\t\t\t\t"),
+        ponta = str_remove(ponta, "\t\t\t\r\n\t\t"))  -> ag_teejet2
+```
+
+
+```{r}
+ag_teejet1 %>%  
+  html_nodes('.price') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(price = value) |> 
+  filter(!price %in% c("R$ 48,98", "R$ 46,91", "R$ 50,30", "R$ 284,77")) |> 
+  filter(row_number() %% 2 == 1 # select odd rows
+         ) -> ag_teejet_price
+```
+
+
+```{r}
+bind_cols(ag_teejet2, ag_teejet_price) |> 
+  mutate(price = str_replace(price, ",", ".")) |> 
+  mutate(price = parse_number(price)) |> 
+  mutate(price = round(price, 2)) |> 
+  mutate(unidades = case_when(
+    str_detect(ponta, "25 unidades") ~ 25,
+    str_detect(ponta, "10 unidades") ~ 10,
+    TRUE ~ 1
+  )) |> 
+  mutate(marca = "TeeJet") |> 
+  mutate(preco_un = round(price/ unidades, 2)) -> teejet
+```
+
+
+## Magnojet
+
+```{r}
+ag_magno <- "https://www.canalagricola.com.br/pulverizacao/bicos-pontas/bicos-pulverizacao/shopby/manufacturer-magnojet?limit=all"
+
+read_html(ag_magno) -> ag_magno1
+
+str(ag_magno1)
+```
+
+```{r}
+ag_magno1 %>%  
+  html_nodes('.product-name') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(ponta = value) |> 
+  mutate(ponta = str_remove(ponta, "\r\n\t\t\t\r\n\t\t\t\t"),
+        ponta = str_remove(ponta, "\t\t\t\r\n\t\t"))  -> ag_magno2
+```
+
+
+```{r}
+ag_magno1 %>%  
+  html_nodes('.price') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(price = value) |> 
+  filter(!price %in% c("R$ 21,55", "R$ 62,68", "R$ 19,87", "R$ 42,86",
+                       "R$ 31,44", "R$ 49,95", "R$ 52,74", "R$ 7,56",
+                       "R$ 37,44", "R$ 134,88", "R$ 45,19")) |> 
+  filter(row_number() %% 2 == 1 # select odd rows
+         ) -> ag_magno_price
+```
+
+
+```{r}
+bind_cols(ag_magno2, ag_magno_price) |> 
+  mutate(price = str_replace(price, ",", ".")) |> 
+  mutate(price = parse_number(price)) |> 
+  mutate(price = round(price, 2)) |> 
+  mutate(unidades = case_when(
+    str_detect(ponta, "25 unidades") ~ 25,
+    str_detect(ponta, "10 unidades") ~ 10,
+    str_detect(ponta, "6 unidades") ~ 6,
+    str_detect(ponta, "5 unidades") ~ 5,
+    str_detect(ponta, "3 unidades") ~ 3,
+    str_detect(ponta, "2 unidades") ~ 2,
+    str_detect(ponta, "10 bicos") ~ 10,
+    TRUE ~ 1
+  )) |> 
+  mutate(marca = "Magnojet") |> 
+  mutate(preco_un = round(price/ unidades, 2)) -> magno
+```
+
+
+
+## KGF
+
+```{r}
+ag_kgf <- "https://www.canalagricola.com.br/pulverizacao/bicos-pontas/bicos-pulverizacao/shopby/manufacturer-kgf?limit=all"
+
+read_html(ag_kgf) -> ag_kgf1
+
+str(ag_kgf1)
+```
+
+```{r}
+ag_kgf1 %>%  
+  html_nodes('.product-name') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(ponta = value) |> 
+  mutate(ponta = str_remove(ponta, "\r\n\t\t\t\r\n\t\t\t\t"),
+        ponta = str_remove(ponta, "\t\t\t\r\n\t\t"))  -> ag_kgf2
+```
+
+
+```{r}
+ag_kgf1 %>%  
+  html_nodes('.price') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(price = value) |> 
+  filter(!price %in% c("R$ 24,12", "R$ 19,40", "R$ 53,90", "R$ 58,09")) |> 
+  filter(row_number() %% 2 == 1 # select odd rows
+         ) -> ag_kgf_price
+```
+
+
+```{r}
+bind_cols(ag_kgf2, ag_kgf_price) |> 
+  mutate(price = str_replace(price, ",", ".")) |> 
+  mutate(price = parse_number(price)) |> 
+  mutate(price = round(price, 2)) |> 
+  mutate(unidades = case_when(
+    str_detect(ponta, "12 unidades") ~ 25,
+    TRUE ~ 1
+  )) |> 
+  mutate(marca = "KGF") |> 
+  mutate(preco_un = round(price/ unidades, 2)) -> kgf
+```
+
+
+
+
+## Hypro
+
+```{r}
+ag_hypro <- "https://www.canalagricola.com.br/pulverizacao/bicos-pontas/bicos-pulverizacao/shopby/manufacturer-hypro?limit=all"
+
+read_html(ag_hypro) -> ag_hypro1
+
+str(ag_hypro1)
+```
+
+```{r}
+ag_hypro1 %>%  
+  html_nodes('.product-name') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(ponta = value) |> 
+  mutate(ponta = str_remove(ponta, "\r\n\t\t\t\r\n\t\t\t\t"),
+        ponta = str_remove(ponta, "\t\t\t\r\n\t\t"))  -> ag_hypro2
+```
+
+
+```{r}
+ag_hypro1 %>%  
+  html_nodes('.price') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(price = value) |> 
+  filter(!price %in% c("R$ 21,83")) |> 
+  filter(row_number() %% 2 == 1 # select odd rows
+         ) -> ag_hypro_price
+```
+
+
+```{r}
+bind_cols(ag_hypro2, ag_hypro_price) |> 
+  mutate(price = str_replace(price, ",", ".")) |> 
+  mutate(price = parse_number(price)) |> 
+  mutate(price = round(price, 2)) |> 
+  mutate(unidades = 1) |> 
+  mutate(marca = "Hypro") |> 
+  mutate(preco_un = round(price/ unidades, 2)) -> hypro
+```
+
+
+
+
+
+## Micron
+
+```{r}
+ag_micron <- "https://www.canalagricola.com.br/pulverizacao/bicos-pontas/bicos-pulverizacao/shopby/manufacturer-micron?limit=all"
+
+read_html(ag_micron) -> ag_micron1
+
+str(ag_micron1)
+```
+
+```{r}
+ag_micron1 %>%  
+  html_nodes('.product-name') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(ponta = value) |> 
+  mutate(ponta = str_remove(ponta, "\r\n\t\t\t\r\n\t\t\t\t"),
+        ponta = str_remove(ponta, "\t\t\t\r\n\t\t"))  -> ag_micron2
+```
+
+
+```{r}
+ag_micron1 %>%  
+  html_nodes('.price') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(price = value) |> 
+  filter(!price %in% c("R$ 41,42", "R$ 38,71")) |> 
+  filter(row_number() %% 2 == 1 # select odd rows
+         ) -> ag_micron_price
+```
+
+
+```{r}
+bind_cols(ag_micron2, ag_micron_price) |> 
+  mutate(price = str_replace(price, ",", ".")) |> 
+  mutate(price = parse_number(price)) |> 
+  mutate(price = round(price, 2)) |> 
+  mutate(unidades = 1) |> 
+  mutate(marca = "Micron") |> 
+  mutate(preco_un = round(price/ unidades, 2)) -> micron
+```
+
+
+
+## Guarany
+
+```{r}
+ag_guarany <- "https://www.canalagricola.com.br/pulverizacao/bicos-pontas/bicos-pulverizacao/shopby/manufacturer-guarany?limit=all"
+
+read_html(ag_guarany) -> ag_guarany1
+
+str(ag_guarany1)
+```
+
+```{r}
+ag_guarany1 %>%  
+  html_nodes('.product-name') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(ponta = value) |> 
+  mutate(ponta = str_remove(ponta, "\r\n\t\t\t\r\n\t\t\t\t"),
+        ponta = str_remove(ponta, "\t\t\t\r\n\t\t"))  -> ag_guarany2
+```
+
+
+```{r}
+ag_guarany1 %>%  
+  html_nodes('.price') |> 
+  html_text() |> 
+  as_tibble() |> 
+  rename(price = value) |> 
+#  filter(!price %in% c("R$ 41,42", "R$ 38,71")) |> 
+  filter(row_number() %% 2 == 1 # select odd rows
+         ) -> ag_guarany_price
+```
+
+
+```{r}
+bind_cols(ag_guarany2, ag_guarany_price) |> 
+  mutate(price = str_replace(price, ",", ".")) |> 
+  mutate(price = parse_number(price)) |> 
+  mutate(price = round(price, 2)) |> 
+  mutate(unidades = 1) |> 
+  mutate(marca = "Guarany") |>  
+  mutate(preco_un = round(price/ unidades, 2)) -> guarany
+```
+
+
+
+## Todos juntos
+
+```{r}
+bind_rows(teejet, magno, hypro, micron, kgf, guarany) -> pontas
+#write_csv(pontas, "on_preco_2021.csv")
+```
+
+
+```{r}
+pontas |> 
+  filter(str_detect(pontas, "TXA"))
+```
+
+
+
+```{r}
+pontas |> 
+  ggplot(aes(x = marca, y = preco_un)) +
+#  geom_point(alpha = 0.1) +
+  geom_jitter(alpha = 0.4, width = 0.3) +
+  coord_flip() +
+  theme_bw()
+```
+
+
+
+```{r}
+library(reactablefmtr)
+data_cb |> 
+#  filter(group == input$group) |> 
+  group_by(pontas, group, ano) |> 
+  summarise(preco_medio = round(mean(price),2), desvio_pd = round(sd(price),2)) |>
+  reactable(pagination = FALSE,
+              theme = nytimes(font_size = 13, header_font_size = 15),
+              resizable = TRUE,
+              wrap = TRUE)
+```
+
+
+
