@@ -1,5 +1,5 @@
 ---
-title: "TeeJet Reseach"
+title: "TeeJet Research"
 output: 
   flexdashboard::flex_dashboard:
     theme: spacelab

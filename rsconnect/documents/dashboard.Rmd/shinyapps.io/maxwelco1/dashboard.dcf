@@ -1,0 +1,13 @@
+name: dashboard
+title: dashboard
+username:
+account: maxwelco1
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6555900
+bundleId: 6046505
+url: https://maxwelco1.shinyapps.io/dashboard/
+when: 1656331823.2182
+lastSyncTime: 1656331823.21821
+asMultiple: TRUE
+asStatic: FALSE
