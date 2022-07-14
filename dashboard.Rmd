@@ -291,5 +291,69 @@ tab1 |>
 ```
 
 
+# XR-VK vs all spray tips 
+
+## Inputs {.sidebar}
+
+```{r}
+selectInput("select4", label = h4("Year"),
+              choices =  unique(data_cb$ano), selected = "2021")
+```
 
 
+
+
+## Column {data-width="500"}
+
+```{r}
+renderReactable({
+data_cb |> 
+  group_by(pontas, ano, manufacturer) |> 
+  summarise(preco_medio = round(mean(price),2), sd = round(sd(price),2)) |> 
+  ungroup(pontas,  ano, manufacturer) |> 
+  mutate(preco_base = case_when(
+    pontas == "XR-VK" ~ preco_medio,
+    TRUE ~ NA_real_)) |> 
+  arrange(ano, desc(pontas)) |> 
+  fill(preco_base, .direction = "down") |> 
+  mutate(diff = round((preco_medio - preco_base) / preco_base * 100,1)) |> 
+  mutate(manufacturer = fct_recode(manufacturer,
+    "TEEJET" = "DEEJET"
+  )) -> xr_all
+
+xr_all |> 
+  filter(ano == input$select4) |> 
+  select(pontas, preco_medio, sd, diff) |> 
+  reactable(pagination = FALSE,
+              theme = nytimes(font_size = 13, header_font_size = 15),
+              resizable = TRUE,
+              wrap = TRUE,
+            columns = list(
+              pontas = colDef(name = "Spray tip", align = "center"), 
+              preco_medio = colDef(name = "Price (RS$)", align = "center",
+                                   cell = color_tiles(xr_all, colors = 
+                                                         c("#FF0000",
+                                                           "#7FFFD4"))),
+              sd = colDef(name = "SD", align = "center"), 
+              diff = colDef(name = "Difference (%)", align = "center",
+              cell = data_bars_pos_neg(xr_all, colors = c("#ff3030", "#1e90ff")))))
+})
+```
+
+
+## Column {data-width="500"}
+
+```{r}
+renderPlotly({
+data_cb |> 
+  filter(ano == input$select4) |> 
+  ggplot(aes(x = fct_reorder(pontas, price), y = price, color = regiao)) +
+  geom_boxplot(color = "#333333") +
+  geom_jitter(size = 2, alpha = 0.3) +
+  coord_flip() +
+  labs(color = NULL) +
+  scale_color_brewer(palette = "Set1") +
+  theme_fivethirtyeight() +
+    theme(legend.position = "none")
+})
+```

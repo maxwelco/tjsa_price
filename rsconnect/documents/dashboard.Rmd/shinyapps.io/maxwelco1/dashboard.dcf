@@ -5,9 +5,9 @@ account: maxwelco1
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6555900
-bundleId: 6046505
+bundleId: 6098107
 url: https://maxwelco1.shinyapps.io/dashboard/
-when: 1656331823.2182
-lastSyncTime: 1656331823.21821
+when: 1657807142.98043
+lastSyncTime: 1657807142.98045
 asMultiple: TRUE
 asStatic: FALSE
