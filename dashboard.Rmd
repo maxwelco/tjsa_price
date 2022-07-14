@@ -55,7 +55,7 @@ selectInput("select2", label = h4("Year"),
 renderPlotly({
 data_cb |> 
   filter(group == input$select1 & ano == input$select2) |> 
-  ggplot(aes(x = pontas, y = price, color = regiao)) +
+  ggplot(aes(x = fct_reorder(pontas, price), y = price, color = regiao)) +
   geom_boxplot(color = "#333333") +
   geom_jitter(size = 2, alpha = 0.3) +
   coord_flip() +
@@ -230,32 +230,7 @@ selectInput("select3", label = h4("Year"),
 
 ## Column {data-width="500"}
 
-### Data
-
-```{r}
-renderPlotly({
-data_cb |> 
-  filter(group %in% c(3,5)) |> 
-  filter(ano == input$select3) |> 
-  ggplot(aes(x = pontas, y = price, color = regiao)) +
-  geom_boxplot(color = "#333333") +
-  geom_jitter(size = 2, alpha = 0.3) +
-  coord_flip() +
-  labs(color = NULL) +
-  scale_color_brewer(palette = "Set1") +
-  theme_fivethirtyeight() +
-    theme(legend.position = "none")
-})
-```
-
-
-
-## Column {data-width="500"}
-
-
-
-
-### Price and Comparison with TeeJet
+### Price and Comparison with TT-VP
 
 ```{r}
 renderReactable({
@@ -290,6 +265,35 @@ tab1 |>
 })
 ```
 
+## Column {data-width="500"}
+
+### Data
+
+```{r}
+renderPlotly({
+data_cb |> 
+  filter(group %in% c(3,5)) |> 
+  filter(ano == input$select3) |> 
+  ggplot(aes(x = fct_reorder(pontas, price), y = price, color = regiao)) +
+  geom_boxplot(color = "#333333") +
+  geom_jitter(size = 2, alpha = 0.3) +
+  coord_flip() +
+  labs(color = NULL) +
+  scale_color_brewer(palette = "Set1") +
+  theme_fivethirtyeight() +
+    theme(legend.position = "none")
+})
+```
+
+
+
+
+
+
+
+
+
+
 
 # XR-VK vs all spray tips 
 
@@ -304,6 +308,8 @@ selectInput("select4", label = h4("Year"),
 
 
 ## Column {data-width="500"}
+
+### Price and Comparison with XR-VK
 
 ```{r}
 renderReactable({
@@ -342,6 +348,8 @@ xr_all |>
 
 
 ## Column {data-width="500"}
+
+### Data
 
 ```{r}
 renderPlotly({
