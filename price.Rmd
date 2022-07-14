@@ -198,7 +198,7 @@ data_cb1 |>
 
 
 ```{r}
-data_cb1 |> 
+data_cb |> 
   group_by(pontas, ano, manufacturer) |> 
   summarise(preco_medio = round(mean(price),2), sd = round(sd(price),2)) |> 
   ungroup(pontas,  ano, manufacturer) |> 
@@ -207,6 +207,9 @@ data_cb1 |>
     TRUE ~ NA_real_)) |> 
   arrange(ano, desc(pontas)) |> 
   fill(preco_base, .direction = "down") |> 
-  mutate(diff = round((preco_medio - preco_base) / preco_base * 100,1)) 
+  mutate(diff = round((preco_medio - preco_base) / preco_base * 100,1)) |> 
+  mutate(manufacturer = fct_recode(manufacturer,
+    "TEEJET" = "DEEJET"
+  )) -> xr_all
 ```
 
