@@ -170,8 +170,8 @@ data_cb |>
   bind_rows(data_cb_cap) |> 
   mutate(manufacturer = case_when(
     pontas == "TTI-cap" ~ "DEEJET",
-    TRUE ~ manufacturer
-  )) -> data_cb1
+    TRUE ~ manufacturer)) -> data_cb1
+
 write_csv(data_cb1, "dados_completos.csv")
 ```
 

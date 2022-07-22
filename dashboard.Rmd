@@ -24,10 +24,8 @@ library(ggfittext)
 
 ```{r warning = FALSE, echo=FALSE}
 # Dados
-readxl::read_excel("shopping_price.xlsx") -> data
-read_csv("names.csv") -> data1
 read_csv("dados_completos.csv") |> 
-    filter(!group %in% c("7", "8")) -> data_cb
+  filter(!group %in% c(7,8)) -> data_cb
 read_csv("diff_price.csv") -> diff_price
 ```
 
