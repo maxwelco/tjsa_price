@@ -152,6 +152,9 @@ bind_rows(dados_2021, dados_2022) |>
     mutate(price = if_else(price == 94.20, 9.42, price)) -> data_cb
 write_csv(data_cb, "dados_completos.csv")
 ```
+
+
+
 ```{r}
 data_cb |> 
   mutate(price = case_when(
@@ -168,11 +171,13 @@ data_cb |>
 ```{r}
 data_cb |> 
   bind_rows(data_cb_cap) |> 
-  mutate(manufacturer = case_when(
-    pontas == "TTI-cap" ~ "DEEJET",
-    TRUE ~ manufacturer)) -> data_cb1
+  mutate_at(c("manufacturer", "pontas"), as.character) |> 
+  mutate(manufacturer = if_else(
+    pontas == "TTI-cap", 
+     "DEEJET", manufacturer)) -> data_cb1
 
 write_csv(data_cb1, "dados_completos.csv")
+#write.csv2(data_cb1, "dados_completos1.csv")
 ```
 
 
@@ -189,7 +194,8 @@ data_cb1 |>
   filter(!group %in% c("7", "8")) |> 
   fill(preco_base, .direction = "down") |> 
   mutate(diff = round((preco_medio - preco_base) / preco_base * 100,1)) |> 
-  write_csv("diff_price.csv")
+  write_csv("diff_price.csv") |> 
+  write_csv2("diff_price1.csv")
 ```
 
 
